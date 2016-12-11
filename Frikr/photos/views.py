@@ -7,8 +7,7 @@ from photos.models import Photo
 
 def home(request):
     photos=Photo.objects.all()
-    html='<ul>'
-    for photo in photos:
-        html+='<li>'+photo.name+'</li>'
-    html+='</ul>'
-    return HttpResponse(html)
+    context={
+        'photos_list':photos
+    }
+    return render(request,'photos/home.html',context)

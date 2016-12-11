@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frikr-Eche</title>
+</head>
+<body>
+    <h2>Bienvenido a Frikr</h2>
+
+    {% if photos_list %}
+        <h3>ültimas fotos publicadas</h3>
+        {% for photo in photos_list %}
+        <img src="{{photo.url}}" alt="{{photo.name}}" height="150">
+        {% endfor %}
+    {% else %}
+        Sé el primero en publicar una foto!
+    {% endif %}
+
+</body>
+</html>
