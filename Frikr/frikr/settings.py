@@ -52,6 +52,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+#De la documentación:
+#Por defecto no se permite a usuarios inactivos iniciar sesión
+#Puede utilizar AllowAllUsersModelBackend o AllowAllUsersRemoteUserBackend si desea permitir a los usuarios inactivos para iniciar sesión.
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.AllowAllUsersModelBackend',)
+
 ROOT_URLCONF = 'frikr.urls'
 
 TEMPLATES = [
