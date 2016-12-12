@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from photos.views import home
+from photos.views import home, detail
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$',home)
+    url(r'^$',home),
+    url(r'^photos/(?P<pk>[0-9]+)/$',detail,name='detail')
 ]

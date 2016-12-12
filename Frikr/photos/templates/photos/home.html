@@ -7,10 +7,13 @@
 <body>
     <h2>Bienvenido a Frikr</h2>
 
-    {% if photos_list %}
-        <h3>ültimas fotos publicadas</h3>
+    {% if photos_list|length > 0 %}
+        <h3>Últimas fotos publicadas</h3>
         {% for photo in photos_list %}
-        <img src="{{photo.url}}" alt="{{photo.name}}" height="150">
+        <a href="{% url 'detail' photo.pk %}">
+            <img src="{{photo.url}}" alt="{{photo.name}}" height="150">
+        </a>
+
         {% endfor %}
     {% else %}
         Sé el primero en publicar una foto!
