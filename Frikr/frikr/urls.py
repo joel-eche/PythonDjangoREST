@@ -16,9 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from photos.views import home, detail
+from users.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    #Photos URLs
     url(r'^$',home, name='photos_home'),
-    url(r'^photos/(?P<pk>[0-9]+)/$',detail,name='photos_detail')
+    url(r'^photos/(?P<pk>[0-9]+)/$',detail,name='photos_detail'),
+
+    #Users URLs
+    url(r'^login$',login,name='users_login'),
+    url(r'^logout$', logout, name='users_logout'),
 ]
