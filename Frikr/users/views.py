@@ -6,16 +6,25 @@ from django.contrib.auth import logout as django_logout, authenticate, login as 
 
 # Create your views here.
 from django.urls import reverse
-from django.urls import reverse_lazy
+from django.views import View
 
-from photos.forms import PhotoForm
-from photos.models import Photo
 from users.forms import LoginForm
 
+class LoginView(View):
 
-def login(request):
-    error_messages=[]
-    if request.method=='POST':
+    def get(self, request):
+        error_messages=[]
+        form = LoginForm()
+
+        context={
+            'errors':error_messages,
+            'login_form':form
+        }
+        return render(request,'users/login.html',context)
+
+    def post(self, request):
+        error_messages=[]
+
         form = LoginForm(request.POST)
         if form.is_valid():
             username=form.cleaned_data.get('usr')
@@ -30,43 +39,14 @@ def login(request):
                     return redirect(url)
                 else:
                     error_messages.append('El usuario no está activo')
-    else:
-        form = LoginForm()
+        context={
+            'errors':error_messages,
+            'login_form':form
+        }
+        return render(request,'users/login.html',context)
 
-    context={
-        'errors':error_messages,
-        'login_form':form
-    }
-    return render(request,'users/login.html',context)
-
-def logout(request):
-    if request.user.is_authenticated():
-        django_logout(request)
-    return redirect('photos_home')
-
-@login_required()
-def create(request):
-    """
-    Muestra un formlario para crear una foto y la crea si la peticion es POST
-    :param request: HttpRequest
-    :return:HttpResponse
-    """
-    success_message=''
-    if request.method=='GET':
-        form=PhotoForm()
-    else:
-        photo_with_owner=Photo()
-        photo_with_owner.owner=request.user #Asigno como usuario de la foto, el usuario autenticado
-        form = PhotoForm(request.POST,instance=photo_with_owner)
-        if form.is_valid():
-            new_photo=form.save()
-            form = PhotoForm()
-            success_message='Guardado con éxito  '
-            success_message +='<a href="{}">'.format(reverse_lazy('photo_detail',args=[new_photo.pk]))
-            success_message +='Ver foto'
-            success_message +='</a>'
-    context={
-        'form':form,
-        'success_message':success_message
-    }
-    return render(request,'photos/new_photo.html',context)
+class LogoutView(View):
+    def get(self,request):
+        if request.user.is_authenticated():
+            django_logout(request)
+        return redirect('photos_home')
