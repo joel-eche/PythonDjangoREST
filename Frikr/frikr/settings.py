@@ -148,3 +148,9 @@ LOGGING={
 
 #LOGIN URL
 LOGIN_URL='/login' #cuando un usuario no está autenticado, le redirige a este enlace
+
+#LICENSES
+LICENSES=(
+    ('QUE','Quentin Tarantino'),
+    ('DSH','Dr. Schutlz')
+)
