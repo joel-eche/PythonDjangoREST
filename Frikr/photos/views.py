@@ -21,7 +21,7 @@ def detail(request,pk):
     :param pk: id de la foto
     :return: HttpResponse
     """
-    possible_photos = Photo.objects.filter(pk=pk)
+    possible_photos = Photo.objects.filter(pk=pk).select_related('owner')
     photo=possible_photos[0] if len(possible_photos)>=1 else None
 
     if photo is not None:
