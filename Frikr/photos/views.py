@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
@@ -12,6 +13,16 @@ from django.views import View
 from photos.forms import PhotoForm
 from photos.models import Photo, PUBLIC
 
+class PhotosQueryset(object):
+    def get_photo_queryset(self,request):
+        if not request.user.is_authenticated(): #Si no está autenticado
+            photos=Photo.objects.filter(visibility=PUBLIC)
+        elif request.user.is_superuser: # Es superusuario
+            photos=Photo.objects.all()
+        else:
+            photos=Photo.objects.filter(Q(owner=request.user) | Q(visibility=PUBLIC))
+        return  photos
+
 class HomeView(View):
 
     def get(self,request):
@@ -21,7 +32,7 @@ class HomeView(View):
         }
         return render(request,'photos/home.html',context)
 
-class DetailView(View):
+class DetailView(View,PhotosQueryset):
     def get(self,request,pk):
         """
         Carga la página de detalle de una foto
@@ -29,7 +40,7 @@ class DetailView(View):
         :param pk: id de la foto
         :return: HttpResponse
         """
-        possible_photos = Photo.objects.filter(pk=pk).select_related('owner')
+        possible_photos = self.get_photo_queryset(request).filter(pk=pk).select_related('owner')
         photo=possible_photos[0] if len(possible_photos)>=1 else None
 
         if photo is not None:
@@ -82,3 +93,21 @@ class CreateView(View):
             'success_message':success_message
         }
         return render(request,'photos/new_photo.html',context)
+
+
+class ListView(View,PhotosQueryset):
+    def get(self,request):
+        """
+        Devuelve:
+        -las fotos públicas si el usuario no está autenticado
+        -las fotos del usuario autenticado o las publicas de otros
+        -si el usuario es superadministrador, todas las fotos
+        :param request: HttpRequest
+        :return:HttpResponse
+        """
+
+        context={
+            'photos':self.get_photo_queryset(request)
+        }
+        return render(request,'photos/photos_list.html',context)
+
