@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic import ListView
 
 from photos.forms import PhotoForm
 from photos.models import Photo, PUBLIC
@@ -95,7 +96,7 @@ class CreateView(View):
         return render(request,'photos/new_photo.html',context)
 
 
-class ListView(View,PhotosQueryset):
+class PhotoListView(View,PhotosQueryset):
     def get(self,request):
         """
         Devuelve:
@@ -111,3 +112,10 @@ class ListView(View,PhotosQueryset):
         }
         return render(request,'photos/photos_list.html',context)
 
+class UserPhotosView(ListView):
+    model = Photo
+    template_name = 'photos/photos_user.html'
+
+    def get_queryset(self):
+        queryset= super(UserPhotosView, self).get_queryset()
+        return queryset.filter(owner=self.request.user)
