@@ -42,7 +42,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/photos/admin.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="185">
@@ -50,6 +50,16 @@
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frikr/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,8 +126,8 @@
         <option value="$PROJECT_DIR$/photos/views.py" />
         <option value="$PROJECT_DIR$/frikr/urls.py" />
         <option value="$PROJECT_DIR$/frikr/templates/base.html" />
-        <option value="$PROJECT_DIR$/frikr/settings.py" />
         <option value="$PROJECT_DIR$/photos/admin.py" />
+        <option value="$PROJECT_DIR$/frikr/settings.py" />
       </list>
     </option>
   </component>
@@ -449,6 +459,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -789,13 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frikr/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frikr/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -853,6 +857,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frikr/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="43" column="19" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
           <folding />
         </state>
       </provider>
