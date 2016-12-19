@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -13,10 +14,16 @@ from rest_framework.renderers import JSONRenderer
 
 class UserListAPI(APIView):
     def get(self, request):
-        users=User.objects.all()
-        serializer=UserSerializer(users,many=True)
+        #instanciación paginador
+        paginator=PageNumberPagination()
+        users=User.objects.all() #devuelve queryset
+        #paginar el queryset
+        users_show=paginator.paginate_queryset(users,request)
+        serializer=UserSerializer(users_show,many=True)
         serialized_users=serializer.data                #lista de diccionarios
-        return Response(serialized_users)
+        #devolver respuesta paginada
+        return paginator.get_paginated_response(serialized_users)
+        #return Response(serialized_users)
 
     def post(self,request):
         serializer=UserSerializer(data=request.data)
@@ -46,4 +53,9 @@ class UserDetailAPI(APIView):
         user = get_object_or_404(User, pk=pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 3
     
