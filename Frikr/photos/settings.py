@@ -12,3 +12,5 @@ DEFAULT_LICENSES=(
 )
 
 LICENSES=getattr(settings,'LICENSES',DEFAULT_LICENSES)#Busca en el objeto settings el atributo LICENSES, si no lo encuentra devuelve DEFAULT_LICENSES
+
+BADWORDS=getattr(settings,'PROJECT_BADWORDS',[])

@@ -165,6 +165,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
 
+#BADWORDS http://goo.gl/G2nCu7
+PROJECT_BADWORDS=[u'Abollao',u'Abrazafarolas',u'Afilasables',u'Analfabestia',u'Apollardao',u'Arrastramantás',]
+
 #REST FRAMEWORK SETTINGS
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
