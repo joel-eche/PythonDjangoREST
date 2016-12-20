@@ -1,18 +1,13 @@
 # -*- coding:utf-8 -*-
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import View
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 
 from users.permissions import UserPermission
 from users.serializers import UserSerializer
-
-from rest_framework.renderers import JSONRenderer
 
 class UserViewSet(ViewSet):
 
@@ -54,13 +49,7 @@ class UserViewSet(ViewSet):
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self,request,pk):#delete
+    def destroy(self,request,pk):
         user = get_object_or_404(User, pk=pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 3
-    page_size_query_param = 'page_size'
-    max_page_size = 3
-    
