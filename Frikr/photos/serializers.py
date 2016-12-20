@@ -1,6 +1,6 @@
-# -*- coging:utf-8 -*-
-from rest_framework import serializers
 
+from rest_framework import serializers
+# -*- coding:utf-8 -*-
 from photos.models import Photo
 
 

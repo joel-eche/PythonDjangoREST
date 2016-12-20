@@ -8,12 +8,17 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from users.permissions import UserPermission
 from users.serializers import UserSerializer
 
 from rest_framework.renderers import JSONRenderer
 
 class UserListAPI(APIView):
+
+    permission_classes = (UserPermission,)
+
     def get(self, request):
+        self.check_permissions(request)
         #instanciación paginador
         paginator=PageNumberPagination()
         users=User.objects.all() #devuelve queryset
@@ -26,6 +31,7 @@ class UserListAPI(APIView):
         #return Response(serialized_users)
 
     def post(self,request):
+        self.check_permissions(request)
         serializer=UserSerializer(data=request.data)
         if serializer.is_valid():
             new_user=serializer.save()
