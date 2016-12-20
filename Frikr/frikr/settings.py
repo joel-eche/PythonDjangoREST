@@ -26,7 +26,7 @@ SECRET_KEY = '%!ll&#)y$#mycpc3zg#4-!h^3knqaih0yd*==l15eod^ve+(u_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'192.168.1.x',] #Tu IP
 
 
 # Application definition
